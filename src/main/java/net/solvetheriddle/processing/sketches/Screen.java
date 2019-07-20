@@ -11,7 +11,7 @@ public class Screen extends PApplet {
     private static PImage img;
 
     public static void main(String... args) {
-        PApplet.main("Screen");
+        PApplet.main(Screen.class.getName());
     }
 
     public void settings() {
