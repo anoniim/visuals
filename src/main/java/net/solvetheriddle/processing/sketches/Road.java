@@ -12,7 +12,7 @@ public class Road extends PApplet {
     private float middleLineWidth;
     private float sideLineWidth;
     private float top;
-    private Line[] lines = new Line[10];
+    private Line[] lines = new Line[13];
     private int counter = 0;
 
     public static void main(String... args) {
@@ -39,11 +39,13 @@ public class Road extends PApplet {
     public void draw() {
         background(0);
 
+        // side lines
         strokeWeight(sideLineWidth);
         stroke(255);
         line(middle - roadWidth / 2, top, middle - roadWidth / 2 * perspective, height);
         line(middle + roadWidth / 2, top, middle + roadWidth / 2 * perspective, height);
 
+        // middle line
         noStroke();
         fill(100);
         quad(
@@ -52,6 +54,7 @@ public class Road extends PApplet {
                 middle + middleLineWidth / 2 * perspective, height,
                 middle - middleLineWidth / 2 * perspective, height);
 
+        // move
         for (int i = 0; i < lines.length; i++) {
             if (counter > (ROAD_LENGTH / lines.length) * i) {
                 lines[i].draw();
@@ -69,7 +72,7 @@ public class Road extends PApplet {
             float yPosition = getYPosition();
 
             stroke(255, 0, 0);
-            line(middle - roadWidth / 2 * perspective, yPosition, middle + roadWidth / 2 * perspective, yPosition);
+            line(middle - ((roadWidth / 2) * perspective), yPosition, middle + ((roadWidth / 2) * perspective), yPosition);
         }
 
         private float getYPosition() {
