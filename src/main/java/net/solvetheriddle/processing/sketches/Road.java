@@ -72,7 +72,9 @@ public class Road extends PApplet {
             float yPosition = getYPosition();
 
             stroke(255, 0, 0);
-            line(middle - ((roadWidth / 2) * perspective), yPosition, middle + ((roadWidth / 2) * perspective), yPosition);
+//            float x1 = middle - ((roadWidth / 2) * perspective);
+//            float x2 = middle + ((roadWidth / 2) * perspective);
+            line(0, yPosition, 0, yPosition);
         }
 
         private float getYPosition() {
