@@ -2,7 +2,6 @@ package net.solvetheriddle.processing.library.shapes
 
 import net.solvetheriddle.processing.library.GenericApplet
 
-
 class Grid(private val applet: GenericApplet, private val width: Float) {
 
     fun draw(rgb: Int) {

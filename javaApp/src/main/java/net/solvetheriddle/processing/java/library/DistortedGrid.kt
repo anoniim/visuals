@@ -13,10 +13,18 @@ abstract class DistortedGrid : PApplet() {
     }
 
     override fun setup() {
+        background(0)
     }
 
-    override fun draw() {
+    private val red: Int = 0
+    private val green: Int = 80
+    private val blue: Int = 160
+    private var step: Int = 10
 
+    override fun draw() {
+        stroke(color((red+step)%255, (green+step)%255, (blue+step)%255))
+        line(pmouseX.toFloat(), pmouseY.toFloat(), mouseX.toFloat(), mouseY.toFloat())
+        step += 10
     }
 }
 
