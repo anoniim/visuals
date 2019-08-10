@@ -83,9 +83,4 @@ class JavaApplet(private val applet: GenericApplet): PApplet(), Applet {
     override fun endShapeG(mode: Int) {
         super.endShape(mode)
     }
-
-    override val controlX: Float
-        get() = super.mouseX.toFloat()
-    override val controlY: Float
-        get() = super.mouseY.toFloat()
 }

@@ -4,7 +4,7 @@ import net.solvetheriddle.processing.library.Applet
 import net.solvetheriddle.processing.library.GenericApplet
 import processing.core.PApplet
 
-class AndroidApplet(private val applet: GenericApplet): PApplet(), Applet {
+class AndroidApplet(private val applet: GenericApplet) : PApplet(), Applet {
 
     init {
         applet.callback = this
@@ -37,29 +37,4 @@ class AndroidApplet(private val applet: GenericApplet): PApplet(), Applet {
     override fun endShapeG() = super.endShape()
     override fun endShapeG(mode: Int) = super.endShape(mode)
 
-    private val screenPadding = 5
-    private val controlXStart by lazy { 0 }
-    private val controlXEnd by lazy { width }
-    private val controlYStart by lazy { width }
-    private val controlYEnd by lazy { height }
-
-    override val controlX: Float = 1F
-        get() {
-            if(mouseX in controlXStart..controlXEnd && mouseY in controlYStart..controlYEnd) {
-                val mouseXControl = mouseX - controlXStart
-                val controlWidth = controlXEnd - controlXStart - screenPadding
-                return (if (mouseXControl != 0) mouseXControl else 1) / (controlWidth / 100F)
-            }
-            return field
-        }
-
-    override val controlY: Float = 1F
-        get() {
-            if(mouseX in controlXStart..controlXEnd && mouseY in controlYStart..controlYEnd) {
-                val mouseYControl = mouseY - controlYStart
-                val controlHeight = controlYEnd - controlYStart
-                return (if (mouseYControl != 0) mouseYControl else 1) / (controlHeight / 100F)
-            }
-            return field
-        }
 }

@@ -31,8 +31,107 @@ abstract class GenericApplet {
     fun endShape() = callback.endShapeG()
     fun endShape(mode: Int) = callback.endShapeG(mode)
 
-    val controlX: Float get() = callback.controlX
-    val controlY: Float get() = callback.controlY
+    /* Custom fields */
+
+    private val isLandscape by lazy { width > height }
+    private val screenPadding = 5
+
+    private val controlXStart by lazy {
+        when (controlMode) {
+            ControlMode.OVERLAY -> 0
+            ControlMode.PAD -> if (isLandscape) height else 0
+        }
+    }
+    private val controlXEnd by lazy { width }
+    private val controlYStart by lazy {
+        when (controlMode) {
+            ControlMode.OVERLAY -> 0
+            ControlMode.PAD -> if (isLandscape) 0 else width
+        }
+    }
+    private val controlYEnd by lazy { height }
+    private val controlWidth by lazy { controlXEnd - controlXStart - screenPadding }
+    private val controlHeight by lazy { controlYEnd - controlYStart }
+
+    val middleX by lazy {
+        when (controlMode) {
+            ControlMode.OVERLAY -> width / 2F
+            ControlMode.PAD -> if (isLandscape) height / 2F else width / 2F
+        }
+    }
+    val middleY by lazy {
+        when (controlMode) {
+            ControlMode.OVERLAY -> height / 2F
+            ControlMode.PAD -> if (isLandscape) height / 2F else width / 2F
+        }
+    }
+    val controlX: Float = 1F
+        get() {
+            return when (controlMode) {
+                ControlMode.OVERLAY -> mouseX.toFloat()
+                ControlMode.PAD -> {
+                    val isWithinControlBounds = mouseX in controlXStart..controlXEnd && mouseY in controlYStart..controlYEnd
+                    if (isWithinControlBounds) {
+                        val mouseXControl = mouseX - controlXStart
+                        (if (mouseXControl != 0) mouseXControl else 1) / (controlWidth / 100F)
+                    } else {
+                        // return the last value within bounds
+                        field
+                    }
+                }
+            }
+        }
+
+    val controlY: Float = 1F
+        get() {
+            return when (controlMode) {
+                ControlMode.OVERLAY -> mouseY.toFloat()
+                ControlMode.PAD -> {
+                    val isWithinControlBounds = mouseX in controlXStart..controlXEnd && mouseY in controlYStart..controlYEnd
+                    if (isWithinControlBounds) {
+                        val mouseYControl = mouseY - controlYStart
+                        (if (mouseYControl != 0) mouseYControl else 1) / (controlHeight / 100F)
+                    } else {
+                        // return the last value within bounds
+                        field
+                    }
+                }
+            }
+        }
+    var controlMode = ControlMode.OVERLAY
+
+    fun controlMode(mode: ControlMode) { controlMode = mode }
+
+    fun showControls(horizontalControlCount: Int = 0, verticalControlCount: Int = 0) {
+        stroke(80)
+        // Horizontal control = vertical lines
+        drawControlLines(horizontalControlCount, controlXStart, controlWidth) { x ->
+            line(x, controlYStart.toFloat(), x, controlYEnd.toFloat())
+        }
+        // Vertical control = horizontal lines
+        drawControlLines(verticalControlCount, controlYStart, controlHeight) { y ->
+            line(controlXStart.toFloat(), y, controlXEnd.toFloat(), y)
+        }
+    }
+
+    private fun drawControlLines(lineCount: Int, // number of lines
+                                 startCoordinate: Int, // start coordinate of the space
+                                 totalSpace: Int, // width/height of the space
+                                 drawLine: (Float) -> Unit) {
+        if (lineCount != 0) {
+            val lineStep = totalSpace / lineCount
+            // Do not draw the first and the last line
+            for (i in 1 until lineCount) {
+                val lineCoordinate: Float = (startCoordinate + i * lineStep).toFloat()
+                drawLine(lineCoordinate)
+            }
+        }
+    }
+}
+
+enum class ControlMode {
+    PAD,
+    OVERLAY
 }
 
 interface Applet {
@@ -58,7 +157,4 @@ interface Applet {
     fun vertexG(x: Float, y: Float)
     fun endShapeG()
     fun endShapeG(mode: Int)
-
-    val controlX: Float
-    val controlY: Float
 }

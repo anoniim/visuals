@@ -1,8 +1,6 @@
 package net.solvetheriddle.processing.library.sketches
 
-import net.solvetheriddle.processing.library.GenericApplet
-import net.solvetheriddle.processing.library.PI
-import net.solvetheriddle.processing.library.TWO_PI
+import net.solvetheriddle.processing.library.*
 import net.solvetheriddle.processing.library.shapes.Grid
 import net.solvetheriddle.processing.library.shapes.Polygon
 import kotlin.math.min
@@ -17,32 +15,29 @@ abstract class PolygonSpiral : GenericApplet() {
     override fun settings() {
         size(1280, 720)
 //        size(600, 600)
-        grid = Grid(this, 10f)
+        controlMode(ControlMode.PAD)
     }
 
     override fun setup() {
-
+        grid = Grid(this, 10f)
     }
 
     override fun draw() {
         background(0)
 //        grid.draw(50)
 
-        translate((width / 2).toFloat(), (height / 2).toFloat())
-
-        stroke(255)
-        noFill()
-
         val size = min(width, height)
         val x = 0F
         val y = 0F
         val originalRadius: Float = 3F * size / 7F
-
-        ellipse(x, y, originalRadius * 2, originalRadius * 2)
-
         val polygonCount = (controlX / 100F * maxPolygonCount).toInt()
-        val nodeCount = (controlY / 100F * maxPolygonNodes - 1).toInt() + 2
+        val nodeCount = ((controlY / 100F) * maxPolygonNodes - 1).toInt() + 2
 
+        showControls(verticalControlCount = maxPolygonNodes)
+
+        stroke(255); noFill()
+        translate(middleX, middleY)
+        ellipse(x, y, originalRadius * 2, originalRadius * 2)
         drawSpiral(x, y, originalRadius, nodeCount, polygonCount)
     }
 
