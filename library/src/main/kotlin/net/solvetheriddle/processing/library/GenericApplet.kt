@@ -1,10 +1,41 @@
 package net.solvetheriddle.processing.library
 
+interface Applet {
+    val heightG: Int
+    val widthG: Int
+    val mousePressedG: Boolean
+    val mouseXG: Int
+    val mouseYG: Int
+
+    fun frameRateG(fps: Float)
+    fun sizeG(width: Int, height: Int)
+    fun pushMatrixG()
+    fun popMatrixG()
+    fun translateG(x: Float, y: Float)
+    fun rotateG(x: Float)
+    fun noFillG()
+    fun backgroundG(color: Int)
+    fun setG(x: Int, y: Int, color: Int)
+//    fun setG(x: Int, y: Int, image: PImage)
+    fun getG(x: Int, y: Int): Int
+//    fun getG(x: Int, y: Int, width: Int, height: Int): PImage
+    fun strokeG(color: Int)
+    fun colorG(r: Int, g: Int, b: Int): Int
+    fun colorG(grey: Int): Int
+    fun ellipseG(x: Float, y: Float, radiusX: Float, radiusY: Float)
+    fun line(x1: Float, y1: Float, x2: Float, y2: Float)
+    fun beginShapeG()
+    fun vertexG(x: Float, y: Float)
+    fun endShapeG()
+    fun endShapeG(mode: Int)
+}
+
 abstract class GenericApplet {
 
     abstract fun settings()
     abstract fun setup()
     abstract fun draw()
+    open fun mousePressed() {}
 
     lateinit var callback: Applet
 
@@ -14,12 +45,15 @@ abstract class GenericApplet {
     val width get() = callback.widthG
     val height get() = callback.heightG
 
+    fun frameRate(fps: Float) = callback.frameRateG(fps)
     fun size(width: Int, height: Int) = callback.sizeG(width, height)
     fun pushMatrix() = callback.pushMatrixG()
     fun popMatrix() = callback.popMatrixG()
     fun translate(x: Float, y: Float) = callback.translateG(x, y)
     fun rotate(x: Float) = callback.rotateG(x)
     fun background(color: Int) = callback.backgroundG(color)
+    fun set(x: Int, y: Int, color: Int) = callback.setG(x, y, color)
+    fun get(x: Int, y: Int): Int = callback.getG(x, y)
     fun noFill() = callback.noFillG()
     fun stroke(color: Int) = callback.strokeG(color)
     fun color(r: Int, g: Int, b: Int) = callback.colorG(r, g, b)
@@ -132,29 +166,4 @@ abstract class GenericApplet {
 enum class ControlMode {
     PAD,
     OVERLAY
-}
-
-interface Applet {
-    val heightG: Int
-    val widthG: Int
-    val mousePressedG: Boolean
-    val mouseXG: Int
-    val mouseYG: Int
-
-    fun sizeG(width: Int, height: Int)
-    fun pushMatrixG()
-    fun popMatrixG()
-    fun translateG(x: Float, y: Float)
-    fun rotateG(x: Float)
-    fun noFillG()
-    fun backgroundG(color: Int)
-    fun strokeG(color: Int)
-    fun colorG(r: Int, g: Int, b: Int): Int
-    fun colorG(grey: Int): Int
-    fun ellipseG(x: Float, y: Float, radiusX: Float, radiusY: Float)
-    fun line(x1: Float, y1: Float, x2: Float, y2: Float)
-    fun beginShapeG()
-    fun vertexG(x: Float, y: Float)
-    fun endShapeG()
-    fun endShapeG(mode: Int)
 }

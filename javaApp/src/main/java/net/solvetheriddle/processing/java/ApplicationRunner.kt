@@ -9,5 +9,6 @@ fun main() {
 //    PApplet.runSketch(arrayOf(""), JavaApplet(InwardSpiral()))
 //    PApplet.runSketch(arrayOf(""), JavaApplet(PolygonCircles()))
 //    PApplet.runSketch(arrayOf(""), JavaApplet(PolygonCircles2()))
-    PApplet.runSketch(arrayOf(""), JavaApplet(PolygonCircles3()))
+//    PApplet.runSketch(arrayOf(""), JavaApplet(PolygonCircles3()))
+    PApplet.runSketch(arrayOf(""), JavaApplet(Spore1()))
 }

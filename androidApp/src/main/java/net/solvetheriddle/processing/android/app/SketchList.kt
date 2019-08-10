@@ -15,9 +15,10 @@ object SketchList {
         addSketch(PolygonCircles::class.java)
         addSketch(PolygonCircles2::class.java)
         addSketch(PolygonCircles3::class.java)
+        addSketch(Spore1::class.java)
     }
 
-    private fun <Applet : net.solvetheriddle.processing.library.GenericApplet>addSketch(javaClass: Class<Applet>) {
+    private fun <Applet : GenericApplet>addSketch(javaClass: Class<Applet>) {
         ITEMS.add(
             SketchItem(
                 javaClass.name,
@@ -29,4 +30,4 @@ object SketchList {
 
 }
 
-data class SketchItem(val id: String, val content: String, val initializer: () -> net.solvetheriddle.processing.library.GenericApplet)
+data class SketchItem(val id: String, val content: String, val initializer: () -> GenericApplet)

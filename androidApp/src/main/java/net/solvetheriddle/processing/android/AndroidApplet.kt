@@ -13,6 +13,7 @@ class AndroidApplet(private val applet: GenericApplet) : PApplet(), Applet {
     override fun settings() = applet.settings()
     override fun setup() = applet.setup()
     override fun draw() = applet.draw()
+    override fun mousePressed() = applet.mousePressed()
 
     override val heightG: Int get() = super.height
     override val widthG: Int get() = super.width
@@ -20,6 +21,7 @@ class AndroidApplet(private val applet: GenericApplet) : PApplet(), Applet {
     override val mouseYG: Int get() = super.mouseY
     override val mousePressedG: Boolean get() = super.mousePressed
 
+    override fun frameRateG(fps: Float) = super.frameRate(fps)
     override fun sizeG(width: Int, height: Int) { /* Always fullscreen */ }
     override fun pushMatrixG() = super.pushMatrix()
     override fun popMatrixG() = super.popMatrix()
@@ -27,6 +29,10 @@ class AndroidApplet(private val applet: GenericApplet) : PApplet(), Applet {
     override fun rotateG(x: Float) = super.rotate(x)
     override fun noFillG() = super.noFill()
     override fun backgroundG(color: Int) = super.background(color)
+    override fun setG(x: Int, y: Int, color: Int) = super.set(x, y, color)
+//    override fun setG(x: Int, y: Int, image: PImage) = super.set(x, y, image)
+    override fun getG(x: Int, y: Int): Int = super.get(x, y)
+//    override fun getG(x: Int, y: Int, width: Int, height: Int): PImage = super.get(x, y, width, height)
     override fun strokeG(color: Int) = super.stroke(color)
     override fun colorG(r: Int, g: Int, b: Int) = super.color(r, g, b)
     override fun colorG(grey: Int) = super.color(grey)
