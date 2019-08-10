@@ -1,11 +1,8 @@
-package net.solvetheriddle.processing.java.library
+package net.solvetheriddle.processing.library.sketches
 
-import processing.core.PApplet
+import net.solvetheriddle.processing.library.GenericApplet
+import kotlin.math.min
 import kotlin.random.Random
-
-fun main() {
-    PApplet.main(Spore1::class.java.canonicalName)
-}
 
 /**
 Spore 1 by Mike Davis.
@@ -17,30 +14,31 @@ random order.
 
 https://processing.org/examples/spore1.html
  */
-class Spore1 : PApplet() {
+class Spore1 : GenericApplet() {
 
     lateinit var w: World
-    var numcells = 0
+    var numcells = 1
     var maxcells = 6700
     var cells = arrayOfNulls<Cell>(maxcells)
-    var spore_color = color(172, 255, 128)
+    var spore_color = 0
     // set lower for smoother animation, higher for faster simulation
     var runs_per_loop = 10000
-    var black = color(0, 0, 0)
+    var black = 0
 
     override fun settings() {
         size(1024, 760)
     }
 
     override fun setup() {
-        frameRate(24F)
+        frameRate(48F)
+        black = color(0, 0, 0)
+        spore_color = color(172, 255, 128)
         reset()
     }
 
     fun reset() {
         clearScreen()
         w = World()
-        spore_color = color(172, 255, 128)
         seed()
     }
 
@@ -91,7 +89,7 @@ class Spore1 : PApplet() {
             if (w.getpix(x + 1, y) == black) {
                 move(0, 1)
             } else if (w.getpix(x, y - 1) != black && w.getpix(x, y + 1) != black) {
-                move(random(9F).toInt() - 4, random(9F).toInt() - 4)
+                move(Random.nextInt(9) - 4, Random.nextInt(9) - 4)
             }
         }
 

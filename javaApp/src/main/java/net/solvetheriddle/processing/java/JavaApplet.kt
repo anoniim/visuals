@@ -13,6 +13,7 @@ class JavaApplet(private val applet: GenericApplet): PApplet(), Applet {
     override fun settings() = applet.settings()
     override fun setup() = applet.setup()
     override fun draw() = applet.draw()
+    override fun mousePressed() = applet.mousePressed()
 
     override val heightG: Int
         get() = super.height
@@ -25,62 +26,22 @@ class JavaApplet(private val applet: GenericApplet): PApplet(), Applet {
     override val mouseYG: Int
         get() = super.mouseY
 
-    override fun sizeG(width: Int, height: Int) {
-        super.size(width, height)
-    }
-    override fun pushMatrixG() {
-        super.pushMatrix()
-    }
-
-    override fun popMatrixG() {
-        super.popMatrix()
-    }
-
-    override fun translateG(x: Float, y: Float) {
-        super.translate(x, y)
-    }
-
-    override fun rotateG(x: Float) {
-        super.rotate(x)
-    }
-
-    override fun noFillG() {
-        super.noFill()
-    }
-
-    override fun backgroundG(color: Int) {
-        super.background(color)
-    }
-
-    override fun strokeG(color: Int) {
-        super.stroke(color)
-    }
-
-    override fun colorG(r: Int, g: Int, b: Int): Int {
-        return super.color(r, g, b)
-    }
-
-    override fun colorG(grey: Int): Int {
-        return super.color(grey)
-    }
-
-    override fun ellipseG(x: Float, y: Float, radiusX: Float, radiusY: Float) {
-        super.ellipse(x, y, radiusX, radiusY)
-    }
-
-    override fun beginShapeG() {
-        super.beginShape()
-    }
-
-    override fun vertexG(x: Float, y: Float) {
-        super.vertex(x, y)
-    }
-
-    override fun endShapeG() {
-        super.endShape()
-    }
-
-    override fun endShapeG(mode: Int) {
-        super.endShape(mode)
-    }
+    override fun frameRateG(fps: Float) = super.frameRate(fps)
+    override fun sizeG(width: Int, height: Int) = super.size(width, height)
+    override fun pushMatrixG() = super.pushMatrix()
+    override fun popMatrixG() = super.popMatrix()
+    override fun translateG(x: Float, y: Float) = super.translate(x, y)
+    override fun rotateG(x: Float) = super.rotate(x)
+    override fun noFillG() = super.noFill()
+    override fun backgroundG(color: Int) = super.background(color)
+    override fun setG(x: Int, y: Int, color: Int) = super.set(x, y, color)
+    override fun getG(x: Int, y: Int): Int = super.get(x, y)
+    override fun strokeG(color: Int) = super.stroke(color)
+    override fun colorG(r: Int, g: Int, b: Int): Int = super.color(r, g, b)
+    override fun colorG(grey: Int): Int = super.color(grey)
+    override fun ellipseG(x: Float, y: Float, radiusX: Float, radiusY: Float) = super.ellipse(x, y, radiusX, radiusY)
+    override fun beginShapeG() = super.beginShape()
+    override fun vertexG(x: Float, y: Float) = super.vertex(x, y)
+    override fun endShapeG() = super.endShape()
+    override fun endShapeG(mode: Int) = super.endShape(mode)
 }
